@@ -75,3 +75,61 @@ vector<string> Solution::binaryTreePaths(TreeNode* root)
 	}
 	return ret;
 }
+
+TreeNode* Solution::invertTree(TreeNode* root)
+{
+	TreeNode *res;	
+	if(root == NULL)
+		return NULL;
+	res = new TreeNode(root->val);
+	res->right = invertTree(root->left);
+	res->left = invertTree(root->right);
+	return res;
+}
+
+/*
+* https://leetcode-cn.com/problems/binary-tree-pruning/
+*/
+TreeNode* Solution::pruneTree(TreeNode* root) 
+{
+	TreeNode *res;
+	if(root == NULL)
+		return NULL;	
+	if((root->left == NULL) && (root->right == NULL))
+		if(root->val == 0)					
+			return NULL;		
+		else
+		{
+			res = new TreeNode(root->val);
+			res->left = NULL;
+			res->right = NULL;
+		}
+	else
+	{
+			res = new TreeNode(root->val);
+			res->left = pruneTree(root->left);
+			res->right = pruneTree(root->right);
+			if((res->left == NULL) && (res->right == NULL))
+				if(root->val == 0)
+				{
+					delete res;
+					return NULL;
+				}					
+	}			
+	return res;
+}
+
+/*
+* https://leetcode-cn.com/problems/search-in-a-binary-search-tree/
+*/
+TreeNode* solution::searchBST(TreeNode* root, int val)
+{
+	TreeNode* res;
+	if(root==NULL)
+		return NULL;
+	if(root->val == val)
+		return root;
+	if((res=searchBST(root->left,val))==NULL)
+		return searchBST(root->right,val);
+	return res;
+}

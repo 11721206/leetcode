@@ -79,4 +79,7 @@ public:
 	int maxDepth(TreeNode *root);
 	int minDepth(TreeNode *root);
 	vector<string> binaryTreePaths(TreeNode* root);
+	TreeNode* invertTree(TreeNode* root);
+	TreeNode* pruneTree(TreeNode* root);
+	TreeNode* searchBST(TreeNode* root, int val);
 };
